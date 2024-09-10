@@ -29,5 +29,3 @@ int yyerror(char *errormsg)
 {
     fprintf(stderr, "%s\n", errormsg);
 }
-
-// a
