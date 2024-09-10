@@ -1,12 +1,12 @@
-%{
-#include <stdio.h>
-#include <stdlib.h>
-#include "y.tab.h"
-int yyerror(char *errormsg);
+    %{
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include "y.tab.h"
+    int yyerror(char *errormsg);
 
-%}
+    %}
 
-%%
+    %%
 
 ("hi"|"oi")"\n"       { return HI;  }
 ("tchau"|"bye")"\n"   { return BYE; }
@@ -29,3 +29,5 @@ int yyerror(char *errormsg)
 {
     fprintf(stderr, "%s\n", errormsg);
 }
+
+// a
