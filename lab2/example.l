@@ -11,15 +11,17 @@
 
 ("+"|"-"|"*"|"/"|"="|"!="|"<"|">"|"<="|">="|"==")"\n" { printf("Operator: %s\n", yytext);}
 
-("if"|"else"|"then"|"endif"|"print"|"newline") {printf("Keyword: %s\n", yytext);}
+("if"|"else"|"then"|"endif"|"print"|"newline")"\n" {printf("Keyword: %s\n", yytext);}
 
 (["'].*["'])"\n"  {printf("Quoted String: %s\n", quotes(yytext));}
 
-("("|")") {printf("Parenthesis: %s\n", yytext);}
+("("|")")"\n" {printf("Parenthesis: %s\n", yytext);}
 
-(";")  {printf("Semicolon: ;\n");}
+(";")"\n"  {printf("Semicolon: ;\n");}
 
-([0-9]) {printf("Integer: %s\n", yytext);}
+^[A-Za-z]([0-9]|[A-Za-z])+$ {printf("Identifier: %s\n", yytext);}
+
+([0-9])"\n" {printf("Integer: %s\n", yytext);}
 .                     { yyerror("Unknown char");  }
 
 %%
