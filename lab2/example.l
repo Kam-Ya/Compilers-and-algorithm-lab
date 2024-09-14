@@ -1,10 +1,28 @@
 %{
     #include <stdio.h>
     #include <stdlib.h>
-    #include "y.tab/h"
+    #include <string.h>
+    #include "y.tab.h"
     int yyerror(char * errormsg);
-%
+    char * quotes(char *quote);
+%}
 
+%%
+
+("+"|"-"|"*"|"/"|"="|"!="|"<"|">"|"<="|">="|"==")"\n" { printf("Operator: %s\n", yytext);}
+
+("if"|"else"|"then"|"endif"|"print"|"newline") {printf("Keyword: %s\n", yytext);}
+
+(["'].*["'])"\n"  {printf("Quoted String: %s\n", quotes(yytext));}
+
+("("|")") {printf("Parenthesis: %s\n", yytext);}
+
+(";")  {printf("Semicolon: ;\n");}
+
+([0-9]) {printf("Integer: %s\n", yytext);}
+.                     { yyerror("Unknown char");  }
+
+%%
 
 int main(void)
 {
@@ -20,4 +38,14 @@ int yywrap(void)
 int yyerror(char *errormsg)
 {
     fprintf(stderr, "%s\n", errormsg);
-}}
+}
+
+char * quotes(char *quote) {
+    for (int i = 0; i < strlen(quote); i++) {
+        quote[i] = quote[i + 1];
+    }
+
+    quote[strlen(quote) - 2] = ' ';
+
+    return quote;
+}
