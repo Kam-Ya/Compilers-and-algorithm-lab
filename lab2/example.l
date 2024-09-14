@@ -47,7 +47,7 @@ char * quotes(char *quote) {
         quote[i] = quote[i + 1];
     }
 
-    quote[strlen(quote) - 2] = ' ';
+    quote[strlen(quote) - 2] = '\0';
 
     return quote;
 }
