@@ -11,6 +11,8 @@
 
 ("+"|"-"|"*"|"/"|"="|"!="|"<"|">"|"<="|">="|"==")"\n" { printf("Operator: %s\n", yytext);}
 
+(["//"].*[0-9]*)"\n" {}
+
 ("if"|"else"|"then"|"endif"|"print"|"newline")"\n" {printf("Keyword: %s\n", yytext);}
 
 (["'].*["'])"\n"  {printf("Quoted String: %s\n", quotes(yytext));}
