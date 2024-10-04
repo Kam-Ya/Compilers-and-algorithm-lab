@@ -9,10 +9,15 @@
 %%
 
 " "* {}
+"\t" {}
+"//".* {}
 
 ("print") {return PRINT;}
-
 ("newline") {return NEWLINE;}
+"if" {return IF;}
+"else" {return ELSE;}
+"endif" {return ENDIF;}
+"then" {return THEN;}
 
 (["'].*["'])  {yylval.strval = strdup(quotes(yytext));
                     return STRING;}

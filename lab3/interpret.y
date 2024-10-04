@@ -4,9 +4,17 @@
 #include <stdlib.h>
 int yylex(void);
 void yyerror(const char *s);
+#define SIZE 10
+
+int stack[SIZE] = {1,0,0,0,0,0,0,0,0,0};
+int lastIn = 0;
+
+void push(int val);
+void pop();
+int top();
+void eval(int statement);
 
 %}
-
 
 %union {
         int intval;
@@ -22,9 +30,8 @@ void yyerror(const char *s);
 %type <intval> term
 %type <intval> factor
 %%
-
 program:
-        stmts
+        stmts 
         ;
 stmts:
         stmt stmts
@@ -34,12 +41,13 @@ stmts:
 stmt:
         prints
         | exp
+        | ifs
         ;
 
 prints:
-        PRINT STRING SEMICOLON {printf("%s", $2);}
-        | PRINT NEWLINE SEMICOLON {printf("\n");}
-        | PRINT exp SEMICOLON {printf("%d", $2);}
+        PRINT STRING SEMICOLON {if (top() == 1) {printf("%s", $2);}}
+        | PRINT NEWLINE SEMICOLON {if (top() == 1) {printf("\n");}}
+        | PRINT exp SEMICOLON {if (top() == 1) {printf("%d", $2);}}
         ;
 
 exp:     exp '+' term        {$$ = $1 + $3;    }
@@ -59,10 +67,44 @@ term:   term '*' factor     {$$ = $1 * $3;    }
 factor: '(' exp ')' {$$ = $2;}
         | NUM {$$ = $1;}
         ;        
+ifs:
+        IF exp THEN {eval($2);} stmts {pop();} ENDIF
+        | IF exp THEN {eval($2);} stmts ELSE {pop(); push(1);} stmts  {pop();} ENDIF
+        ;
+
 
 
 %%
 
 void yyerror(const char *s) {
     fprintf(stderr, "%s\n", s);
+}
+
+void push(int val) {
+        if (lastIn == SIZE - 1) {
+                yyerror("STACK OVERFLOW");
+        } else {
+                stack[++lastIn] = val;
+        }
+}
+
+void pop() {
+        if (lastIn == 0) {
+                yyerror("STACK UNDERFLOW");
+        } else {
+                stack[lastIn] = 1;
+                lastIn;
+        }
+}
+
+int top() {
+        return stack[lastIn];
+}
+
+void eval(int statement) {
+        if (top() == 0) {
+                push(0);
+        } else {
+                push(statement);
+        }
 }
