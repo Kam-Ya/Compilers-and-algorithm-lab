@@ -3,41 +3,59 @@
 #include <stdio.h>
 #include <stdlib.h>
 int yylex(void);
-int yyerror(const char *s);
+void yyerror(const char *s);
 
 %}
 
-int math();
 
-%token expr
+%union {
+        int intval;
+        char * strval;
+}
+
+
+%token SEMICOLON ELSE IF NEWLINE PRINT ENDIF THEN '/' '*' '+' '-'
+%token <strval> STRING
+%token <intval> NUM
+%type <intval> exp
+%type <intval> term
+%type <intval> factor
+%%
+
+program:
+        stmts
+        ;
+stmts:
+        stmt stmts
+        |
+        ;
+
+stmt:
+        prints
+        | exp
+        ;
+
+prints:
+        PRINT STRING SEMICOLON {printf("%s", $2);}
+        | PRINT NEWLINE SEMICOLON {printf("\n");}
+        | PRINT exp SEMICOLON {printf("%d", $2);}
+        ;
+
+exp:    NUM             {$$ = $1;         }
+        | exp '+' term        {$$ = $1 + $3;    }
+        | exp '-' term     {$$ = $1 - $3;    }
+        | term
+        ;
+term:   term '*' factor     {$$ = $1 * $3;    }
+        | term '/' factor     {$$ = $1 / $3;    }
+        |factor
+        ;
+factor: '(' exp ')' {$$ = $2;}
+        ;        
+
 
 %%
 
-program: 
-         math bye
-        ;
-
-E : math   {
-        return $$;
-}
-
-math:     
-        math '+' math {$$ = $1 + $3} 
-        | math '-' math {$$ = $1 - $3}
-        | math '*' math {$$ = $1 * $3}
-        | math '/' math {$$ = $1 / $3}
-        | math "!=" math {if (&1 != $3) {&& = 1} else {$$ = 0}}
-        | math "<" math {if (&1 < $3) {&& = 1} else {$$ = 0}}
-        | math ">" math {if (&1 > $3) {&& = 1} else {$$ = 0}}
-        | math "<=" math {if (&1 <= $3) {&& = 1} else {$$ = 0}}
-        | math ">=" math {if (&1 >= $3) {&& = 1} else {$$ = 0}}
-        | math "==" math {if (&1 == $3) {&& = 1} else {$$ = 0}}
-        | '(' math ')' {$$ = $2} 
-        ;
-bye:    
-        BYE    { printf("Bye World\n"); exit(0); }
-
-
-int math() {
-
+void yyerror(const char *s) {
+    fprintf(stderr, "Error: %s\n", s);
 }
