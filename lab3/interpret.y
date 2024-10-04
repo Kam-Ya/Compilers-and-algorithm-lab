@@ -12,8 +12,6 @@ int lastIn = 0;
 void push(int val);
 void pop();
 int top();
-void eval(int statement);
-
 %}
 
 %union {
@@ -68,8 +66,8 @@ factor: '(' exp ')' {$$ = $2;}
         | NUM {$$ = $1;}
         ;        
 ifs:
-        IF exp THEN {eval($2);} stmts {pop();} ENDIF
-        | IF exp THEN {eval($2);} stmts ELSE {pop(); push(1);} stmts  {pop();} ENDIF
+        IF exp THEN {top()==1 ? push($2!=0) : push(0);} stmts {pop();}
+        ELSE {top()==1 ? push($2==0) : push(0);} stmts {pop();} ENDIF
         ;
 
 
@@ -99,12 +97,4 @@ void pop() {
 
 int top() {
         return stack[lastIn];
-}
-
-void eval(int statement) {
-        if (top() == 0) {
-                push(0);
-        } else {
-                push(statement);
-        }
 }
