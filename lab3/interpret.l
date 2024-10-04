@@ -25,6 +25,12 @@
 "/" {return '/';}
 "(" {return '(';}
 ")" {return ')';}
+">" {return '>';}
+"<" {return '<';}
+"<=" {return LE;}
+">=" {return GE;}
+"==" {return EE;}
+"!=" {return NE;}
 
 [0-9]+ {yylval.intval = atoi(yytext);
         return NUM;}

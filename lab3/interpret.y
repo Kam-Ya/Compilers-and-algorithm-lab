@@ -14,7 +14,8 @@ void yyerror(const char *s);
 }
 
 
-%token SEMICOLON ELSE IF NEWLINE PRINT ENDIF THEN '/' '*' '+' '-'
+%token SEMICOLON ELSE IF NEWLINE PRINT ENDIF THEN '/' '*' '+' '-' '>' '<'
+%token LE GE EE NE
 %token <strval> STRING
 %token <intval> NUM
 %type <intval> exp
@@ -43,6 +44,12 @@ prints:
 
 exp:     exp '+' term        {$$ = $1 + $3;    }
         | exp '-' term     {$$ = $1 - $3;    }
+        | exp '<' term      {if ($1 < $3) {$$ = 1;} else {$$ = 0;}}
+        | exp '>' term      {if ($1 > $3) {$$ = 1;} else {$$ = 0;}}
+        | exp LE term      {if ($1 <= $3) {$$ = 1;} else {$$ = 0;}}
+        | exp GE term      {if ($1 >= $3) {$$ = 1;} else {$$ = 0;}} 
+        | exp EE term      {if ($1 == $3) {$$ = 1;} else {$$ = 0;}}
+        | exp NE term      {if ($1 != $3) {$$ = 1;} else {$$ = 0;}}
         | term
         ;
 term:   term '*' factor     {$$ = $1 * $3;    }

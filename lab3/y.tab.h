@@ -61,8 +61,12 @@ extern int yydebug;
     PRINT = 262,                   /* PRINT  */
     ENDIF = 263,                   /* ENDIF  */
     THEN = 264,                    /* THEN  */
-    STRING = 265,                  /* STRING  */
-    NUM = 266                      /* NUM  */
+    LE = 265,                      /* LE  */
+    GE = 266,                      /* GE  */
+    EE = 267,                      /* EE  */
+    NE = 268,                      /* NE  */
+    STRING = 269,                  /* STRING  */
+    NUM = 270                      /* NUM  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -78,8 +82,12 @@ extern int yydebug;
 #define PRINT 262
 #define ENDIF 263
 #define THEN 264
-#define STRING 265
-#define NUM 266
+#define LE 265
+#define GE 266
+#define EE 267
+#define NE 268
+#define STRING 269
+#define NUM 270
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -90,7 +98,7 @@ union YYSTYPE
         int intval;
         char * strval;
 
-#line 94 "y.tab.h"
+#line 102 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
