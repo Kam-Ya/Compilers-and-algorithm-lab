@@ -66,8 +66,9 @@ factor: '(' exp ')' {$$ = $2;}
         | NUM {$$ = $1;}
         ;        
 ifs:
-        IF exp THEN {top()==1 ? push($2!=0) : push(0);} stmts {pop();}
-        ELSE {top()==1 ? push($2==0) : push(0);} stmts {pop();} ENDIF
+        IF exp THEN {top()==1 ? push($2!=0) : push(0);} stmts {pop();} ENDIF
+        | IF exp THEN {top()==1 ? push($2!=0) : push(0);} stmts
+        | ELSE {top()==1 ? push(0) : push(1);} stmts {pop(); pop();} ENDIF
         ;
 
 
