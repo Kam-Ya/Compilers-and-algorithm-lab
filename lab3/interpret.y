@@ -41,8 +41,7 @@ prints:
         | PRINT exp SEMICOLON {printf("%d", $2);}
         ;
 
-exp:    NUM             {$$ = $1;         }
-        | exp '+' term        {$$ = $1 + $3;    }
+exp:     exp '+' term        {$$ = $1 + $3;    }
         | exp '-' term     {$$ = $1 - $3;    }
         | term
         ;
@@ -51,11 +50,12 @@ term:   term '*' factor     {$$ = $1 * $3;    }
         |factor
         ;
 factor: '(' exp ')' {$$ = $2;}
+        | NUM {$$ = $1;}
         ;        
 
 
 %%
 
 void yyerror(const char *s) {
-    fprintf(stderr, "Error: %s\n", s);
+    fprintf(stderr, "%s\n", s);
 }

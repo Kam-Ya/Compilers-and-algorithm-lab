@@ -589,7 +589,7 @@ static const yytype_int8 yytranslate[] =
 static const yytype_int8 yyrline[] =
 {
        0,    26,    26,    29,    30,    34,    35,    39,    40,    41,
-      44,    45,    46,    47,    49,    50,    51,    53
+      44,    45,    46,    48,    49,    50,    52,    53
 };
 #endif
 
@@ -633,8 +633,8 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 static const yytype_int8 yypact[] =
 {
       -2,    -6,   -10,    -9,     4,   -10,    -2,   -10,     5,    11,
-     -10,    16,    22,    -1,     3,   -10,   -10,    12,    12,    12,
-      12,   -10,   -10,   -10,   -10,    11,    11,   -10,   -10
+     -10,    16,    22,    -1,     3,   -10,   -10,    -9,    -9,    -9,
+      -9,   -10,   -10,   -10,   -10,    11,    11,   -10,   -10
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -642,9 +642,9 @@ static const yytype_int8 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       4,     0,    10,     0,     0,     2,     4,     5,     6,    13,
-      16,     0,     0,     0,     0,     1,     3,     0,     0,     0,
-       0,     8,     7,     9,    17,    11,    12,    15,    14
+       4,     0,    17,     0,     0,     2,     4,     5,     6,    12,
+      15,     0,     0,     0,     0,     1,     3,     0,     0,     0,
+       0,     8,     7,     9,    16,    10,    11,    14,    13
 };
 
 /* YYPGOTO[NTERM-NUM].  */
@@ -666,14 +666,14 @@ static const yytype_int8 yytable[] =
 {
       11,    13,    23,    14,    15,     1,     2,     3,    12,     2,
        3,    17,    18,     2,     3,    17,    18,    17,    18,    21,
-      24,    19,    20,    25,    26,    22,    27,    28,     3,    16
+      24,    19,    20,    25,    26,    22,    27,    28,     0,    16
 };
 
 static const yytype_int8 yycheck[] =
 {
        6,     1,     3,     3,     0,     7,    15,    16,    14,    15,
       16,    12,    13,    15,    16,    12,    13,    12,    13,     3,
-      17,    10,    11,    17,    18,     3,    19,    20,    16,     6
+      17,    10,    11,    17,    18,     3,    19,    20,    -1,     6
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
@@ -689,14 +689,14 @@ static const yytype_int8 yystos[] =
 static const yytype_int8 yyr1[] =
 {
        0,    18,    19,    20,    20,    21,    21,    22,    22,    22,
-      23,    23,    23,    23,    24,    24,    24,    25
+      23,    23,    23,    24,    24,    24,    25,    25
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
        0,     2,     1,     2,     0,     1,     1,     3,     3,     3,
-       1,     3,     3,     1,     3,     3,     1,     3
+       3,     3,     1,     3,     3,     1,     3,     1
 };
 
 
@@ -1177,39 +1177,39 @@ yyreduce:
 #line 1178 "y.tab.c"
     break;
 
-  case 10: /* exp: NUM  */
+  case 10: /* exp: exp '+' term  */
 #line 44 "interpret.y"
-                        {(yyval.intval) = (yyvsp[0].intval);         }
+                             {(yyval.intval) = (yyvsp[-2].intval) + (yyvsp[0].intval);    }
 #line 1184 "y.tab.c"
     break;
 
-  case 11: /* exp: exp '+' term  */
+  case 11: /* exp: exp '-' term  */
 #line 45 "interpret.y"
-                              {(yyval.intval) = (yyvsp[-2].intval) + (yyvsp[0].intval);    }
+                           {(yyval.intval) = (yyvsp[-2].intval) - (yyvsp[0].intval);    }
 #line 1190 "y.tab.c"
     break;
 
-  case 12: /* exp: exp '-' term  */
-#line 46 "interpret.y"
-                           {(yyval.intval) = (yyvsp[-2].intval) - (yyvsp[0].intval);    }
+  case 13: /* term: term '*' factor  */
+#line 48 "interpret.y"
+                            {(yyval.intval) = (yyvsp[-2].intval) * (yyvsp[0].intval);    }
 #line 1196 "y.tab.c"
     break;
 
-  case 14: /* term: term '*' factor  */
+  case 14: /* term: term '/' factor  */
 #line 49 "interpret.y"
-                            {(yyval.intval) = (yyvsp[-2].intval) * (yyvsp[0].intval);    }
+                              {(yyval.intval) = (yyvsp[-2].intval) / (yyvsp[0].intval);    }
 #line 1202 "y.tab.c"
     break;
 
-  case 15: /* term: term '/' factor  */
-#line 50 "interpret.y"
-                              {(yyval.intval) = (yyvsp[-2].intval) / (yyvsp[0].intval);    }
+  case 16: /* factor: '(' exp ')'  */
+#line 52 "interpret.y"
+                    {(yyval.intval) = (yyvsp[-1].intval);}
 #line 1208 "y.tab.c"
     break;
 
-  case 17: /* factor: '(' exp ')'  */
+  case 17: /* factor: NUM  */
 #line 53 "interpret.y"
-                    {(yyval.intval) = (yyvsp[-1].intval);}
+              {(yyval.intval) = (yyvsp[0].intval);}
 #line 1214 "y.tab.c"
     break;
 
@@ -1411,5 +1411,5 @@ yyreturnlab:
 
 
 void yyerror(const char *s) {
-    fprintf(stderr, "Error: %s\n", s);
+    fprintf(stderr, "%s\n", s);
 }
