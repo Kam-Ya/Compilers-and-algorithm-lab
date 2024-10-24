@@ -19,4 +19,4 @@
     - Handle simple logic
     - Evaluate expressions (Both mathematical and true or false)
 4. Lab4 **Improve the interpreter**
-    - TODO
+    - To improve the interpreter I am tasked with adding Variable Assignment

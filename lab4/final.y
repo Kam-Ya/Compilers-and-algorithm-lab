@@ -2,12 +2,42 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 int yylex(void);
 void yyerror(const char *s);
 #define SIZE 10
 
 int stack[SIZE] = {1,0,0,0,0,0,0,0,0,0};
 int lastIn = 0;
+
+struct identifier {
+        char * id;
+        int val;
+};
+
+struct identifier table[10];
+int stored = 0;
+
+int getVal(char *key) {
+        for (int i = 0; i < stored; i++) {
+                if (strcmp(table[i].id, key)) {
+                        return table[i].val;
+                }
+        }
+}
+
+void setVal(char * key, int value) {
+        for (int i = 0; i < stored; i++) {
+                if (strcmp(table[i].id, key)) {
+                        table[i].val = value;
+                        return;
+                }
+        }
+        table[stored].id = key;
+        table[stored].val = value;
+        // printf("stored = 1: %s: %d", table[stored].id, table[stored].val);
+        stored++;
+}
 
 void push(int val);
 void pop();
@@ -20,13 +50,15 @@ int top();
 }
 
 
-%token SEMICOLON ELSE IF NEWLINE PRINT ENDIF THEN '/' '*' '+' '-' '>' '<' ID '='
+%token SEMICOLON ELSE IF NEWLINE PRINT ENDIF THEN '/' '*' '+' '-' '>' '<' '='
 %token LE GE EE NE
 %token <strval> STRING
 %token <intval> NUM
+%token <strval> ID
 %type <intval> exp
 %type <intval> term
 %type <intval> factor
+%type <strval> assign
 %%
 program:
         stmts 
@@ -44,7 +76,8 @@ stmt:
         ;
 
 assign: 
-        ID '=' exp;
+        ID '=' exp SEMICOLON {setVal($1, $3);}
+        ;
 
 prints:
         PRINT STRING SEMICOLON {if (top() == 1) {printf("%s", $2);}}
@@ -68,7 +101,7 @@ term:   term '*' factor     {$$ = $1 * $3;    }
         ;
 factor: '(' exp ')' {$$ = $2;}
         | NUM {$$ = $1;}
-        | ID
+        | ID {$$ = getVal($1);}
         ;        
 ifs:
         IF exp THEN {top()==1 ? push($2!=0) : push(0);} stmts {pop();} ENDIF

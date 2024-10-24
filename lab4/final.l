@@ -38,7 +38,7 @@
 "==" {return EE;}
 "!=" {return NE;}
 
-^[A-Za-z]([0-9]|[A-Za-z])*$ {return ID;}
+[A-Za-z]([0-9]|[A-Za-z])* {yylval.strval = strdup(yytext); return ID;}
 
 
 [0-9]+ {yylval.intval = atoi(yytext);
