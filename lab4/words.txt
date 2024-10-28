@@ -1,2 +1,8 @@
-x = 2;
+x = 2; // for some reason the first variable assigned doesnt work correctly?
+y = 2 + 3*2;
+print "y =";
+print y;
+print newline;
+print "y+2=";
+print y + 2;
 print newline;

@@ -482,8 +482,9 @@ char *yytext;
     #include <string.h>
     #include "y.tab.h"
     char * quotes(char *quote);
-#line 486 "lex.yy.c"
+    char str[1024];
 #line 487 "lex.yy.c"
+#line 488 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -700,10 +701,10 @@ YY_DECL
 		}
 
 	{
-#line 9 "final.l"
+#line 10 "final.l"
 
 
-#line 707 "lex.yy.c"
+#line 708 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -762,147 +763,149 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 11 "final.l"
+#line 12 "final.l"
 {}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 12 "final.l"
+#line 13 "final.l"
 {}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 13 "final.l"
+#line 14 "final.l"
 {}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 15 "final.l"
+#line 16 "final.l"
 {return PRINT;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 16 "final.l"
+#line 17 "final.l"
 {return NEWLINE;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 17 "final.l"
+#line 18 "final.l"
 {return IF;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 18 "final.l"
+#line 19 "final.l"
 {return ELSE;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 19 "final.l"
+#line 20 "final.l"
 {return ENDIF;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 20 "final.l"
+#line 21 "final.l"
 {return THEN;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 22 "final.l"
-{yylval.strval = strdup(quotes(yytext));
+#line 23 "final.l"
+{strncpy(str, &(yytext[1]), strlen(yytext)-2);
+                str[strlen(yytext)-2] = '\0';
+                yylval.strval = strdup(str);
                     return STRING;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 25 "final.l"
+#line 28 "final.l"
 {return SEMICOLON;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 27 "final.l"
+#line 30 "final.l"
 {return '+';}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 28 "final.l"
+#line 31 "final.l"
 {return '-';}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 29 "final.l"
+#line 32 "final.l"
 {return '*';}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 30 "final.l"
+#line 33 "final.l"
 {return '/';}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 31 "final.l"
+#line 34 "final.l"
 {return '(';}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 32 "final.l"
+#line 35 "final.l"
 {return ')';}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 33 "final.l"
+#line 36 "final.l"
 {return '>';}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 34 "final.l"
+#line 37 "final.l"
 {return '<';}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 35 "final.l"
+#line 38 "final.l"
 {return '=';}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 36 "final.l"
+#line 39 "final.l"
 {return LE;}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 37 "final.l"
+#line 40 "final.l"
 {return GE;}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 38 "final.l"
+#line 41 "final.l"
 {return EE;}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 39 "final.l"
+#line 42 "final.l"
 {return NE;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 41 "final.l"
+#line 44 "final.l"
 {yylval.strval = strdup(yytext); return ID;}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 44 "final.l"
+#line 47 "final.l"
 {yylval.intval = atoi(yytext);
         return NUM;}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 47 "final.l"
+#line 50 "final.l"
 { printf("Unknown char");  }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 49 "final.l"
+#line 52 "final.l"
 ECHO;
 	YY_BREAK
-#line 906 "lex.yy.c"
+#line 909 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1907,7 +1910,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 49 "final.l"
+#line 52 "final.l"
 
 
 int main(void)
@@ -1919,14 +1922,4 @@ int main(void)
 int yywrap(void)
 {
    return 0;
-}
-
-char * quotes(char *quote) {
-    for (int i = 0; i < strlen(quote); i++) {
-        quote[i] = quote[i + 1];
-    }
-
-    quote[strlen(quote) - 1] = '\0';
-
-    return quote;
 }

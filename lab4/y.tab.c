@@ -85,7 +85,7 @@ struct identifier {
         int val;
 };
 
-struct identifier table[10];
+struct identifier table[11];
 int stored = 0;
 
 int getVal(char *key) {
@@ -109,11 +109,12 @@ void setVal(char * key, int value) {
         stored++;
 }
 
+
 void push(int val);
 void pop();
 int top();
 
-#line 117 "y.tab.c"
+#line 118 "y.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -198,12 +199,12 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 47 "final.y"
+#line 48 "final.y"
 
         int intval;
         char * strval;
 
-#line 207 "y.tab.c"
+#line 208 "y.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -651,10 +652,10 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    64,    64,    67,    68,    72,    73,    74,    75,    79,
-      83,    84,    85,    88,    89,    90,    91,    92,    93,    94,
-      95,    96,    98,    99,   100,   102,   103,   104,   107,   107,
-     107,   108,   108,   109,   109,   109
+       0,    65,    65,    68,    69,    73,    74,    75,    76,    80,
+      84,    85,    86,    89,    90,    91,    92,    93,    94,    95,
+      96,    97,    99,   100,   101,   103,   104,   105,   108,   108,
+     108,   109,   109,   110,   110,   110
 };
 #endif
 
@@ -1258,139 +1259,139 @@ yyreduce:
   switch (yyn)
     {
   case 9: /* assign: ID '=' exp SEMICOLON  */
-#line 79 "final.y"
+#line 80 "final.y"
                              {setVal((yyvsp[-3].strval), (yyvsp[-1].intval));}
-#line 1264 "y.tab.c"
+#line 1265 "y.tab.c"
     break;
 
   case 10: /* prints: PRINT STRING SEMICOLON  */
-#line 83 "final.y"
+#line 84 "final.y"
                                {if (top() == 1) {printf("%s", (yyvsp[-1].strval));}}
-#line 1270 "y.tab.c"
+#line 1271 "y.tab.c"
     break;
 
   case 11: /* prints: PRINT NEWLINE SEMICOLON  */
-#line 84 "final.y"
+#line 85 "final.y"
                                   {if (top() == 1) {printf("\n");}}
-#line 1276 "y.tab.c"
+#line 1277 "y.tab.c"
     break;
 
   case 12: /* prints: PRINT exp SEMICOLON  */
-#line 85 "final.y"
+#line 86 "final.y"
                               {if (top() == 1) {printf("%d", (yyvsp[-1].intval));}}
-#line 1282 "y.tab.c"
+#line 1283 "y.tab.c"
     break;
 
   case 13: /* exp: exp '+' term  */
-#line 88 "final.y"
+#line 89 "final.y"
                              {(yyval.intval) = (yyvsp[-2].intval) + (yyvsp[0].intval);    }
-#line 1288 "y.tab.c"
+#line 1289 "y.tab.c"
     break;
 
   case 14: /* exp: exp '-' term  */
-#line 89 "final.y"
+#line 90 "final.y"
                            {(yyval.intval) = (yyvsp[-2].intval) - (yyvsp[0].intval);    }
-#line 1294 "y.tab.c"
+#line 1295 "y.tab.c"
     break;
 
   case 15: /* exp: exp '<' term  */
-#line 90 "final.y"
+#line 91 "final.y"
                             {if ((yyvsp[-2].intval) < (yyvsp[0].intval)) {(yyval.intval) = 1;} else {(yyval.intval) = 0;}}
-#line 1300 "y.tab.c"
+#line 1301 "y.tab.c"
     break;
 
   case 16: /* exp: exp '>' term  */
-#line 91 "final.y"
+#line 92 "final.y"
                             {if ((yyvsp[-2].intval) > (yyvsp[0].intval)) {(yyval.intval) = 1;} else {(yyval.intval) = 0;}}
-#line 1306 "y.tab.c"
+#line 1307 "y.tab.c"
     break;
 
   case 17: /* exp: exp LE term  */
-#line 92 "final.y"
+#line 93 "final.y"
                            {if ((yyvsp[-2].intval) <= (yyvsp[0].intval)) {(yyval.intval) = 1;} else {(yyval.intval) = 0;}}
-#line 1312 "y.tab.c"
+#line 1313 "y.tab.c"
     break;
 
   case 18: /* exp: exp GE term  */
-#line 93 "final.y"
+#line 94 "final.y"
                            {if ((yyvsp[-2].intval) >= (yyvsp[0].intval)) {(yyval.intval) = 1;} else {(yyval.intval) = 0;}}
-#line 1318 "y.tab.c"
+#line 1319 "y.tab.c"
     break;
 
   case 19: /* exp: exp EE term  */
-#line 94 "final.y"
+#line 95 "final.y"
                            {if ((yyvsp[-2].intval) == (yyvsp[0].intval)) {(yyval.intval) = 1;} else {(yyval.intval) = 0;}}
-#line 1324 "y.tab.c"
+#line 1325 "y.tab.c"
     break;
 
   case 20: /* exp: exp NE term  */
-#line 95 "final.y"
+#line 96 "final.y"
                            {if ((yyvsp[-2].intval) != (yyvsp[0].intval)) {(yyval.intval) = 1;} else {(yyval.intval) = 0;}}
-#line 1330 "y.tab.c"
+#line 1331 "y.tab.c"
     break;
 
   case 22: /* term: term '*' factor  */
-#line 98 "final.y"
+#line 99 "final.y"
                             {(yyval.intval) = (yyvsp[-2].intval) * (yyvsp[0].intval);    }
-#line 1336 "y.tab.c"
+#line 1337 "y.tab.c"
     break;
 
   case 23: /* term: term '/' factor  */
-#line 99 "final.y"
+#line 100 "final.y"
                               {(yyval.intval) = (yyvsp[-2].intval) / (yyvsp[0].intval);    }
-#line 1342 "y.tab.c"
+#line 1343 "y.tab.c"
     break;
 
   case 25: /* factor: '(' exp ')'  */
-#line 102 "final.y"
+#line 103 "final.y"
                     {(yyval.intval) = (yyvsp[-1].intval);}
-#line 1348 "y.tab.c"
+#line 1349 "y.tab.c"
     break;
 
   case 26: /* factor: NUM  */
-#line 103 "final.y"
+#line 104 "final.y"
               {(yyval.intval) = (yyvsp[0].intval);}
-#line 1354 "y.tab.c"
+#line 1355 "y.tab.c"
     break;
 
   case 27: /* factor: ID  */
-#line 104 "final.y"
+#line 105 "final.y"
              {(yyval.intval) = getVal((yyvsp[0].strval));}
-#line 1360 "y.tab.c"
+#line 1361 "y.tab.c"
     break;
 
   case 28: /* $@1: %empty  */
-#line 107 "final.y"
+#line 108 "final.y"
                     {top()==1 ? push((yyvsp[-1].intval)!=0) : push(0);}
-#line 1366 "y.tab.c"
+#line 1367 "y.tab.c"
     break;
 
   case 29: /* $@2: %empty  */
-#line 107 "final.y"
+#line 108 "final.y"
                                                               {pop();}
-#line 1372 "y.tab.c"
+#line 1373 "y.tab.c"
     break;
 
   case 31: /* $@3: %empty  */
-#line 108 "final.y"
+#line 109 "final.y"
                       {top()==1 ? push((yyvsp[-1].intval)!=0) : push(0);}
-#line 1378 "y.tab.c"
+#line 1379 "y.tab.c"
     break;
 
   case 33: /* $@4: %empty  */
-#line 109 "final.y"
+#line 110 "final.y"
                {top()==1 ? push(0) : push(1);}
-#line 1384 "y.tab.c"
+#line 1385 "y.tab.c"
     break;
 
   case 34: /* $@5: %empty  */
-#line 109 "final.y"
+#line 110 "final.y"
                                                      {pop(); pop();}
-#line 1390 "y.tab.c"
+#line 1391 "y.tab.c"
     break;
 
 
-#line 1394 "y.tab.c"
+#line 1395 "y.tab.c"
 
       default: break;
     }
@@ -1583,7 +1584,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 114 "final.y"
+#line 115 "final.y"
 
 
 void yyerror(const char *s) {

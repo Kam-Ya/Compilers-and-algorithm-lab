@@ -4,6 +4,7 @@
     #include <string.h>
     #include "y.tab.h"
     char * quotes(char *quote);
+    char str[1024];
 %}
 
 %%
@@ -19,7 +20,9 @@
 "endif" {return ENDIF;}
 "then" {return THEN;}
 
-(["'].*["'])  {yylval.strval = strdup(quotes(yytext));
+(["'].*["'])  {strncpy(str, &(yytext[1]), strlen(yytext)-2);
+                str[strlen(yytext)-2] = '\0';
+                yylval.strval = strdup(str);
                     return STRING;}
 
 (";")  {return SEMICOLON;}
@@ -57,14 +60,4 @@ int main(void)
 int yywrap(void)
 {
    return 0;
-}
-
-char * quotes(char *quote) {
-    for (int i = 0; i < strlen(quote); i++) {
-        quote[i] = quote[i + 1];
-    }
-
-    quote[strlen(quote) - 1] = '\0';
-
-    return quote;
 }

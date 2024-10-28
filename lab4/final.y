@@ -15,7 +15,7 @@ struct identifier {
         int val;
 };
 
-struct identifier table[10];
+struct identifier table[11];
 int stored = 0;
 
 int getVal(char *key) {
@@ -38,6 +38,7 @@ void setVal(char * key, int value) {
         // printf("stored = 1: %s: %d", table[stored].id, table[stored].val);
         stored++;
 }
+
 
 void push(int val);
 void pop();
