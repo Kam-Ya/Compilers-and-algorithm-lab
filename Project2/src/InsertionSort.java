@@ -1,5 +1,6 @@
 public class InsertionSort {
-    public <T extends Comparable<T>> InsertionSort(T[] x) {
+    public int compares = 0;
+    public <T extends Comparable<T>> int InsertionSort(T[] x) {
         for( int p = 0; p < a.length; p++ )
         {
             int i = p;
@@ -13,9 +14,12 @@ public class InsertionSort {
                     x[i-1]=tmp;
                     i--;
                 }
-                else
+                else {
                     sorted = true;
+                }
+                compares++;
             }
         }
+        return compares;
     }
 }

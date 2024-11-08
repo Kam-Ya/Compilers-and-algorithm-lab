@@ -6,7 +6,7 @@ public class TestDriver {
 	new InsertionSort(),
 	new SelectionSort(),
 	new BubbleSort(),
-	new QuickSort()
+	new QuickSort();
     };
     static String[] names = {
 	"insertion",
@@ -80,11 +80,16 @@ public class TestDriver {
 
     static Comparable[][][] makeData(String[] types, int[] sizes) {
 	Comparable[][][] data = new Comparable[types.length][][];
+
 	java.util.Random r = new java.util.Random(0);
+
 	for (int type = 0; type < types.length; type++) {
+
 	    data[type] = new Comparable[sizes.length][];
+
 	    for( int size = 0; size < sizes.length; size++ ) {
 		data[type][size] = new Integer[sizes[size]];
+
 		for( int i = 0; i < sizes[size]; i++ )
 		    switch(type) {
 		    case SORTED:

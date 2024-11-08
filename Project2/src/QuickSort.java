@@ -1,9 +1,11 @@
 public class QuickSort {
 
     private static final int CUTOFF = 10;
+    public int compares = 0;
 
-    public <T extends Comparable<T>> QuickSort(T[] x) {
+    public <T extends Comparable<T>> int QuickSort(T[] x) {
         quicksort(x, 0, x.length);
+        return compares;
     }
 
     public static <T extends Comparable<T>> void swaps(T[] a, int ind1, int ind2) {
@@ -21,6 +23,7 @@ public class QuickSort {
 
             for(j = p; j > low && tmp.compareTo(a[j - 1]) < 0; j--) {
                 a[j] = a[j - 1];
+                compares++;
             }
             a[j] = tmp;
         }
@@ -46,9 +49,13 @@ public class QuickSort {
             // Begin partitioning
             int i, j;
             for (i = low, j = high - 1; ; ) {
-                while (a[++i].compareTo(pivot) < 0)
+                while (a[++i].compareTo(pivot) < 0) {
+                    compares++;
+                }
                     ;
-                while (pivot.compareTo(a[--j]) < 0)
+                while (pivot.compareTo(a[--j]) < 0) {
+                    compares++;
+                }
                     ;
                 if (i >= j)
                     break;
@@ -60,6 +67,7 @@ public class QuickSort {
 
             quicksort(a, low, i - 1);    // Sort small elements
             quicksort(a, i + 1, high);
+
         }
     }
 }

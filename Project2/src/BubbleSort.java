@@ -1,5 +1,7 @@
 public class BubbleSort {
-    public <T extends Comparable<T>> BubbleSort(T[] x) {
+
+    public int compares = 0;
+    public <T extends Comparable<T>> int BubbleSort(T[] x) {
         boolean swapped;
         T temp;
         for (int i = 0; i < x.length; i++) {
@@ -11,10 +13,12 @@ public class BubbleSort {
                     x[j + 1] = temp;
                     swapped = true;
                 }
+                compares++;
             }
             if (!swapped) { // no elements were swapped all is good
                 break;
             }
         }
+        return compares;
     }
 }

@@ -8,7 +8,7 @@ public class SelectionSort {
                 if (a[i].compareTo(a[max]) > 0)
                     max = i;
 
-            T tmp = a[max]; 
+            T tmp = a[max];
             a[max] = a[last];
             a[last] = tmp;
         }
