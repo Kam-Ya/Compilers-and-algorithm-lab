@@ -1,11 +1,12 @@
-public class QuickSort {
+package engi3255.sort;
+
+public class QuickSortStd implements Sort {
 
     private static final int CUTOFF = 10;
     public int compares = 0;
 
-    public <T extends Comparable<T>> int QuickSort(T[] x) {
+    public <T extends Comparable<T>> void QuickSort(T[] x) {
         quicksort(x, 0, x.length);
-        return compares;
     }
 
     public static <T extends Comparable<T>> void swaps(T[] a, int ind1, int ind2) {
@@ -14,7 +15,7 @@ public class QuickSort {
         a[ind2] = temp;
     }
 
-    private static <T extends Comparable<T>> void insert( T[] a, int low, int high )
+    private <T extends Comparable<T>> void insert( T[] a, int low, int high )
     {
         for(int p = low + 1; p <= high; p++)
         {
@@ -29,7 +30,7 @@ public class QuickSort {
         }
     }
 
-    public static <T extends Comparable<T>> void quicksort(T[] a, int low, int high) {
+    public <T extends Comparable<T>> void quicksort(T[] a, int low, int high) {
         if (low + CUTOFF > high)
             insert(a, low, high);
         else {
@@ -69,5 +70,15 @@ public class QuickSort {
             quicksort(a, i + 1, high);
 
         }
+    }
+
+    @Override
+    public <T extends Comparable<T>> void sort(T[] a) {
+        this.QuickSort(a);
+    }
+
+    @Override
+    public long getCompares() {
+        return 0;
     }
 }

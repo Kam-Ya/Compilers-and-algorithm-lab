@@ -1,7 +1,9 @@
-public class BubbleSort {
+package engi3255.sort;
 
-    public int compares = 0;
-    public <T extends Comparable<T>> int BubbleSort(T[] x) {
+public class BubbleSortStd implements Sort{
+
+    public long compares = 0;
+    public <T extends Comparable<T>> void BubbleSort(T[] x) {
         boolean swapped;
         T temp;
         for (int i = 0; i < x.length; i++) {
@@ -19,6 +21,15 @@ public class BubbleSort {
                 break;
             }
         }
+    }
+
+    @Override
+    public <T extends Comparable<T>> void sort(T[] a) {
+        this.BubbleSort(a);
+    }
+
+    @Override
+    public long getCompares() {
         return compares;
     }
 }

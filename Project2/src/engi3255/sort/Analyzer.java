@@ -1,3 +1,4 @@
+package engi3255.sort;
 
 public interface Analyzer {
 

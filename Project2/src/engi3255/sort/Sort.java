@@ -8,7 +8,7 @@ public interface Sort {
      *
      * @throws IllegalArgumentException if the argument is null
      */
-    void sort( Comparable [ ] a );
+    <T extends Comparable<T>> void sort( T [ ] a );
 
     /**
      * Returns the number of compares used in sort
