@@ -6,7 +6,7 @@ public class QuickSortStd implements Sort {
     public int compares = 0;
 
     public <T extends Comparable<T>> void QuickSort(T[] x) {
-        quicksort(x, 0, x.length);
+        quicksort(x, 0, x.length - 1);
     }
 
     public static <T extends Comparable<T>> void swaps(T[] a, int ind1, int ind2) {
