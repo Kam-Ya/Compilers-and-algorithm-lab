@@ -1,6 +1,6 @@
 package engi3255.sort;
 
-public class BubbleSortStd implements Sort{
+public class BubbleSortStd implements Sort, Analyzer{
 
     public long compares = 0;
     public <T extends Comparable<T>> void BubbleSort(T[] x) {
@@ -31,5 +31,25 @@ public class BubbleSortStd implements Sort{
     @Override
     public long getCompares() {
         return compares;
+    }
+
+    @Override
+    public void analyze(int[] sizes, long[] data) {
+
+    }
+
+    @Override
+    public double[] getRatios() {
+        return new double[0];
+    }
+
+    @Override
+    public double getError() {
+        return 0;
+    }
+
+    @Override
+    public String getBigOh() {
+        return "";
     }
 }

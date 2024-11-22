@@ -1,6 +1,6 @@
 package engi3255.sort;
 
-public class InsertionSortStd implements Sort {
+public class InsertionSortStd implements Sort, Analyzer {
     public int compares = 0;
     public <T extends Comparable<T>> void InsertionSort(T[] x) {
         for( int p = 0; p < x.length; p++ )
@@ -32,5 +32,25 @@ public class InsertionSortStd implements Sort {
     @Override
     public long getCompares() {
         return compares;
+    }
+
+    @Override
+    public void analyze(int[] sizes, long[] data) {
+
+    }
+
+    @Override
+    public double[] getRatios() {
+        return new double[0];
+    }
+
+    @Override
+    public double getError() {
+        return 0;
+    }
+
+    @Override
+    public String getBigOh() {
+        return "";
     }
 }

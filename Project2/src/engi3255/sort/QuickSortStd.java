@@ -1,6 +1,6 @@
 package engi3255.sort;
 
-public class QuickSortStd implements Sort {
+public class QuickSortStd implements Sort, Analyzer {
 
     private static final int CUTOFF = 10;
     public int compares = 0;
@@ -80,5 +80,25 @@ public class QuickSortStd implements Sort {
     @Override
     public long getCompares() {
         return this.compares;
+    }
+
+    @Override
+    public void analyze(int[] sizes, long[] data) {
+
+    }
+
+    @Override
+    public double[] getRatios() {
+        return new double[0];
+    }
+
+    @Override
+    public double getError() {
+        return 0;
+    }
+
+    @Override
+    public String getBigOh() {
+        return "";
     }
 }
