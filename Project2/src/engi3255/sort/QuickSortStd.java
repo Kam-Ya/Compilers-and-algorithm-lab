@@ -79,6 +79,6 @@ public class QuickSortStd implements Sort {
 
     @Override
     public long getCompares() {
-        return 0;
+        return this.compares;
     }
 }
