@@ -1,6 +1,6 @@
 package engi3255.sort;
 
-public class InsertionSortStd implements Sort, Analyzer {
+public class InsertionSortStd implements Sort {
     public int compares = 0;
     public <T extends Comparable<T>> void InsertionSort(T[] x) {
         for( int p = 0; p < x.length; p++ )
@@ -9,6 +9,7 @@ public class InsertionSortStd implements Sort, Analyzer {
             boolean sorted = false;
             while ((i>0) && (!sorted))
             {
+                compares++;
                 if (x[i].compareTo(x[i-1]) < 0)
                 {
                     T tmp = x[i ];
@@ -19,7 +20,6 @@ public class InsertionSortStd implements Sort, Analyzer {
                 else {
                     sorted = true;
                 }
-                compares++;
             }
         }
     }
@@ -32,25 +32,5 @@ public class InsertionSortStd implements Sort, Analyzer {
     @Override
     public long getCompares() {
         return compares;
-    }
-
-    @Override
-    public void analyze(int[] sizes, long[] data) {
-
-    }
-
-    @Override
-    public double[] getRatios() {
-        return new double[0];
-    }
-
-    @Override
-    public double getError() {
-        return 0;
-    }
-
-    @Override
-    public String getBigOh() {
-        return "";
     }
 }

@@ -1,6 +1,6 @@
 package engi3255.sort;
 
-public class SelectionSortStd implements Sort, Analyzer {
+public class SelectionSortStd implements Sort {
     public long compares = 0;
 
     public <T extends Comparable<T>> void SelectionSort(T[] a)
@@ -29,25 +29,5 @@ public class SelectionSortStd implements Sort, Analyzer {
     @Override
     public long getCompares() {
         return compares;
-    }
-
-    @Override
-    public void analyze(int[] sizes, long[] data) {
-
-    }
-
-    @Override
-    public double[] getRatios() {
-        return new double[0];
-    }
-
-    @Override
-    public double getError() {
-        return 0;
-    }
-
-    @Override
-    public String getBigOh() {
-        return "";
     }
 }
