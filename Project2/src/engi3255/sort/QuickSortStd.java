@@ -6,6 +6,7 @@ public class QuickSortStd implements Sort {
     public int compares = 0;
 
     public <T extends Comparable<T>> void QuickSort(T[] x) {
+        compares = 0;
         quicksort(x, 0, x.length - 1);
     }
 
@@ -22,9 +23,14 @@ public class QuickSortStd implements Sort {
             T tmp = a[ p ];
             int j;
 
-            for(j = p; j > low && tmp.compareTo(a[j - 1]) < 0; j--) {
-                a[j] = a[j - 1];
+            for(j = p; j > low; j--) {
                 compares++;
+                if(tmp.compareTo(a[j - 1]) < 0) {
+                    a[j] = a[j - 1];
+                } else {
+                    break;
+                }
+
             }
             a[j] = tmp;
         }
@@ -42,6 +48,9 @@ public class QuickSortStd implements Sort {
                 swaps(a, low, high);
             if (a[high].compareTo(a[middle]) < 0)
                 swaps(a, middle, high);
+            compares++;
+            compares++;
+            compares++;
 
             // Place pivot at position high - 1
             swaps(a, middle, high - 1);
@@ -53,11 +62,11 @@ public class QuickSortStd implements Sort {
                 while (a[++i].compareTo(pivot) < 0) {
                     compares++;
                 }
-                    ;
+                compares++;
                 while (pivot.compareTo(a[--j]) < 0) {
                     compares++;
                 }
-                    ;
+                compares++;
                 if (i >= j)
                     break;
                 swaps(a, i, j);

@@ -5,6 +5,7 @@ public class SelectionSortStd implements Sort {
 
     public <T extends Comparable<T>> void SelectionSort(T[] a)
     {
+        compares = 0;
         for (int last = a.length - 1; last >= 1; last--)
         {
             int max = 0;

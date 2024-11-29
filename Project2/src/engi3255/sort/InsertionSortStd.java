@@ -3,6 +3,7 @@ package engi3255.sort;
 public class InsertionSortStd implements Sort {
     public int compares = 0;
     public <T extends Comparable<T>> void InsertionSort(T[] x) {
+        compares = 0;
         for( int p = 0; p < x.length; p++ )
         {
             int i = p;

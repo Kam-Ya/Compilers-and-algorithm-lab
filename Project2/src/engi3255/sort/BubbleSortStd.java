@@ -5,6 +5,7 @@ public class BubbleSortStd implements Sort {
     public long compares = 0;
 
     public <T extends Comparable<T>> void BubbleSort(T[] x) {
+        compares = 0;
         boolean swapped;
         T temp;
         for (int i = 0; i < x.length; i++) {
