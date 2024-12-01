@@ -7,6 +7,7 @@ public class AnalyzerImpl implements Analyzer{
     public double[][] OhRatios;
     public double error;
     public int bigOh;
+    public double[][] means;
     public double mean;
 
     @Override
@@ -19,30 +20,31 @@ public class AnalyzerImpl implements Analyzer{
         }
 
         for (int i = 0; i < sizes.length; i++) {
-            OhRatios[i][0] = (double) sizes[i];
-            OhRatios[i][1] = (double) sizes[i]/log(sizes[i]);
-            OhRatios[i][2] = 1;
-            OhRatios[i][3] = (double) sizes[i]/(sizes[i]*log(sizes[i]));
-            OhRatios[i][4] = (double) sizes[i]/pow(sizes[i], 2);
-            OhRatios[i][5] = (double) sizes[i]/pow(sizes[i], 3);
-            OhRatios[i][6] = (double) sizes[i]/pow(2, sizes[i]);
+            OhRatios[i][0] = (double) data[i];
+            OhRatios[i][1] = (double) data[i] / (log(sizes[i]) / log(2));
+            OhRatios[i][2] = (double) data[i] / sizes[i];
+            OhRatios[i][3] = (double) data[i] / (sizes[i] * (log(sizes[i]) / log(2)));
+            OhRatios[i][4] = (double) data[i] / pow(sizes[i], 2);
+            OhRatios[i][5] = (double) data[i] / pow(sizes[i], 3);
+            OhRatios[i][6] = (double) data[i] / pow(2, sizes[i]);
+
+            means[0][0] += OhRatios[i][0];
+            means[0][1] += OhRatios[i][1];
+            means[0][2] += OhRatios[i][2];
+            means[0][3] += OhRatios[i][3];
+            means[0][4] += OhRatios[i][4];
+            means[0][5] += OhRatios[i][5];
+            means[0][6] += OhRatios[i][6];
+
         }
 
-        for (int i = 0; i < sizes.length; i++) {
-            this.ratio[i] = (double) data[i]/sizes[i];
-            this.mean += this.ratio[i];
-            if (i == sizes.length - 1) { // gets mean
-                this.mean = this.mean/i;
-            }
-        }
-
-        for (int i = 0; i < sizes.length; i++) {
-            this.error += abs(this.ratio[i] - this.mean) / this.mean;
-            if (i == sizes.length - 1) { // gets mean
-                this.error = this.error/i;
-            }
-        }
-
+        means[0][0] = means[0][0] / sizes.length;
+        means[0][1] = means[0][1] / sizes.length;
+        means[0][2] = means[0][2] / sizes.length;
+        means[0][3] = means[0][3] / sizes.length;
+        means[0][4] = means[0][4] / sizes.length;
+        means[0][5] = means[0][5] / sizes.length;
+        means[0][6] = means[0][6] / sizes.length;
     }
 
     @Override
