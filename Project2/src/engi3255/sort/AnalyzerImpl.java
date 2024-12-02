@@ -3,16 +3,17 @@ package engi3255.sort;
 import static java.lang.Math.*;
 
 public class AnalyzerImpl implements Analyzer{
-    public double[] ratio;
-    public double[][] OhRatios;
+    public double[] ratio = new double[]{};
     public double error;
-    public int bigOh;
-    public double[][] means;
+    public String bigOh;
     public double mean;
 
     @Override
     public void analyze(int[] sizes, long[] data) {
-        String[] oh = {"1", "logN", "N", "NlogN", "N^2", "N^3", "2^N"};
+        String[] oh = {"O(1)", "O(log N)", "O(N)", "O(N log N)", "O(N^2)", "O(N^3)", "O(2^N)"};
+        double[][] OhRatios = new double[sizes.length][7];
+        double[][] errors = new double[1][7];
+        double[][] means = new double[1][7];
 
         if (sizes.length != data.length) {
             System.out.println("Error");
@@ -45,6 +46,39 @@ public class AnalyzerImpl implements Analyzer{
         means[0][4] = means[0][4] / sizes.length;
         means[0][5] = means[0][5] / sizes.length;
         means[0][6] = means[0][6] / sizes.length;
+
+        for (int i = 0; i < sizes.length; i++) {
+            errors[0][0] += abs(OhRatios[i][0] - means[0][0])/means[0][0];
+            errors[0][1] += abs(OhRatios[i][1] - means[0][1])/means[0][1];
+            errors[0][2] += abs(OhRatios[i][2] - means[0][2])/means[0][2];
+            errors[0][3] += abs(OhRatios[i][3] - means[0][3])/means[0][3];
+            errors[0][4] += abs(OhRatios[i][4] - means[0][4])/means[0][4];
+            errors[0][5] += abs(OhRatios[i][5] - means[0][5])/means[0][5];
+            errors[0][6] += abs(OhRatios[i][6] - means[0][6])/means[0][6];
+        }
+
+        errors[0][0] = errors[0][0]/sizes.length;
+        errors[0][1] = errors[0][1]/sizes.length;
+        errors[0][2] = errors[0][2]/sizes.length;
+        errors[0][3] = errors[0][3]/sizes.length;
+        errors[0][4] = errors[0][4]/sizes.length;
+        errors[0][5] = errors[0][5]/sizes.length;
+        errors[0][6] = errors[0][6]/sizes.length;
+
+        int count = 0;
+        for (int i = 1; i < 7; i++) {
+            if (errors[0][i] < errors[0][i - 1]) {
+                count = i;
+            }
+        }
+
+        for (int i = 1; i < sizes.length; i++) {
+            ratio[i] = OhRatios[i][count];
+        }
+
+        this.error = errors[0][count];
+        this.bigOh = oh[count];
+
     }
 
     @Override
@@ -59,6 +93,6 @@ public class AnalyzerImpl implements Analyzer{
 
     @Override
     public String getBigOh() {
-        return "";
+        return this.bigOh;
     }
 }

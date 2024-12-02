@@ -152,21 +152,22 @@ public class TestDriver {
     }
 
 
-//    static void testAnalyzer() {
-//        System.out.println("Testing engi3255.sort.Analyzer");
-//        Analyzer foo = new AnalyzerImpl();
-//        for (int test = 0; test < tests.length; test++) {
-//            foo.analyze(tests[test], values[test]);
-//            if (!expected[test].equals(foo.getBigOh())) {
-//                System.out.println("expected: " + expected[test]);
-//                System.out.println("actual: " + foo.getBigOh());
-//                assert false;
-//            }
-//        }
-//        System.out.println("\t\tPASSED");
-//    }
+    static void testAnalyzer() {
+        System.out.println("Testing engi3255.sort.Analyzer");
+        Analyzer foo = new AnalyzerImpl();
+        for (int test = 0; test < tests.length; test++) {
+            foo.analyze(tests[test], values[test]);
+            if (!expected[test].equals(foo.getBigOh())) {
+                System.out.println("expected: " + expected[test]);
+                System.out.println("actual: " + foo.getBigOh());
+                assert false;
+            }
+        }
+        System.out.println("\t\tPASSED");
+    }
+
     public static void main (String[] args) {
         testSorts();
-        // testAnalyzer;
+         testAnalyzer();
     }
 }
