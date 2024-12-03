@@ -1,9 +1,11 @@
 package engi3255.sort;
 
+import java.util.Arrays;
+
 import static java.lang.Math.*;
 
 public class AnalyzerImpl implements Analyzer{
-    public double[] ratio = new double[]{};
+    public double[] ratio = new double[100];
     public double error;
     public String bigOh;
     public double mean;
@@ -14,6 +16,11 @@ public class AnalyzerImpl implements Analyzer{
         double[][] OhRatios = new double[sizes.length][7];
         double[][] errors = new double[1][7];
         double[][] means = new double[1][7];
+        for (double i : ratio) {
+            i = 0;
+        }
+
+        this.error = 0;
 
         if (sizes.length != data.length) {
             System.out.println("Error");
@@ -71,6 +78,9 @@ public class AnalyzerImpl implements Analyzer{
                 count = i;
             }
         }
+//        for (double[] woah : OhRatios) {
+//            System.out.println(Arrays.toString(woah));
+//        }
 
         for (int i = 1; i < sizes.length; i++) {
             ratio[i] = OhRatios[i][count];

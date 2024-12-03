@@ -166,8 +166,47 @@ public class TestDriver {
         System.out.println("\t\tPASSED");
     }
 
+    static void work() {
+        Analyzer foo = new AnalyzerImpl();
+        for (int sort = 0; sort < sorts.length; sort++) {
+            Comparable[][][] data = makeData(types, sizes);
+            for (int type = 0; type < types.length; type++) {
+                System.out.println(names[sort] + " sort with " +
+                        types[type] + " data");
+                long[] cmps = new long[sizes.length];
+                for (int size = 0; size < sizes.length; size++) {
+                    sorts[sort].sort( data[type][size] );
+                    cmps[size] = sorts[sort].getCompares();
+                }
+                System.out.println();
+
+                System.out.print("Sizes: ");
+                for (int size = 0; size < sizes.length; size++) {
+                    System.out.print(sizes[size] + " ");
+                }
+                System.out.println();
+
+                System.out.print("Compares: ");
+                for (int size = 0; size < sizes.length; size++) {
+                    System.out.print(cmps[size] + " ");
+                }
+                System.out.println();
+                foo.analyze(sizes ,cmps);
+
+                System.out.print("Ratios: ");
+                double[] temp = foo.getRatios();
+                for (int size = 0; size < sizes.length; size++) {
+                    System.out.print(temp[size] + " ");
+                }
+                System.out.print(foo.getBigOh() + " " + foo.getError());
+                System.out.println();
+            }
+        }
+    }
+
     public static void main (String[] args) {
         testSorts();
-         testAnalyzer();
+        testAnalyzer();
+        work();
     }
 }
