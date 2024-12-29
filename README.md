@@ -20,3 +20,10 @@
     - Evaluate expressions (Both mathematical and true or false)
 4. Lab4 **Improve the interpreter**
     - To improve the interpreter I am tasked with adding Variable Assignment
+5. Lab5 **Create programs to compare and contrast different sorting algorithms.**
+    - Make minor changes to provided code to allow sorting algorithms to sort generic datatypes.
+    - Create and implement interfaces to check:
+        1. How many compares each algorithm makes
+        2. The relative error of each algorithm
+        3. The Big O of the algorithm
+    - Update provided test driver to ensure correct completion of previous steps.
